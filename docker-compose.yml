@@ -1,0 +1,115 @@
+##########################################
+# Docker full media server configuration #
+##########################################
+version: '2'
+
+services:
+  # Movie downloads
+  couchpotato:
+    image: linuxserver/couchpotato
+    volumes:
+      - $HOME/dev/docker_containers/couchpotato:/config
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 30001:5050
+  # TV Show downloads
+  sonar:
+    image: linuxserver/sonarr
+    volumes:
+      - $HOME/dev/docker_containers/sonarr:/config
+      - /media/ruri/Torrents/Completed:/downloads/
+      - /dev/rtc:/dev/rtc:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 30002:8989
+  # Music downloader
+  headphonez:
+    image: linuxserver/headphones
+    volumes:
+      - $HOME/dev/docker_containers/headphones:/config
+      - /media/ruri/Torrents/Completed:/config/Completed
+      - /media/gamora/Music:/config/Completed
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 30006:8181
+  # Comic downloader
+  mylar:
+    image: linuxserver/mylar
+    volumes:
+      - $HOME/dev/docker_containers/headphones:/config
+      - /media/ruri/Torrents/Completed:/config/Completed
+      - /media/gamora/Comics:/comics
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 30007:8181
+  # Newsgroup downloader
+  sabnzb:
+    image: linuxserver/sabnzbd
+    volumes:
+      - $HOME/dev/docker_containers/sabnzb:/config
+      - /media/ruri/Torrents/Completed:/config/Downloads/complete
+      - /media/ruri/Torrents/Downloading:/config/Downloads/incomplete
+      - $HOME/Downloads/nzb:/config/nzbs
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 30003:8080
+      - 40001:9090
+  # Torrent downloader
+  deluge:
+    image: linuxserver/deluge
+    volumes:
+      - $HOME/dev/docker_containers/deluge:/config
+      - /media/ruri/Torrents/Completed:/config/Completed
+      - /media/ruri/Torrents/Downloading:/config/Downloads
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    network_mode: "host"
+  # Media Server
+  plex:
+    image: linuxserver/plex
+    volumes:
+      - $HOME/dev/docker_containers/plex:/config
+      - /media/gamora:/mnt
+    environment:
+      - VERSION=latest
+      - PGID=1000
+      - PUID=1000
+    network_mode: "host"
+  # Allows people to request movies/tv shows that will download through sonarr or couchpotato
+  plexrequests:
+    image: lsiodev/plexrequests
+    volumes:
+      - $HOME/dev/docker_containers/plexrequests:/config
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 30004:3000
+  # Collects stats for your Plex server
+  plexpy:
+    image: linuxserver/plexpy
+    volumes:
+      - $HOME/dev/docker_containers/plexpy:/config
+      - $HOME/dev/docker_containers/plexpy_logs:/logs
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PGID=1000
+      - PUID=1000
+    ports:
+      - 30005:8181
