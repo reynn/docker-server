@@ -113,3 +113,14 @@ services:
       - PUID=1000
     ports:
       - 30005:8181
+  # Portal for control
+  muximux:
+    image: linuxserver/muximux
+    volumes:
+      - $HOME/dev/docker_containers/muximux:/config
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=Americas\Los Angeles
+    ports:
+      - 80:80
