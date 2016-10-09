@@ -15,7 +15,7 @@
 
 ##### Downloaders
 * [SabNZBd](https://sabnzbd.org/): Newsgroup downloader
-* [Deluge](http://deluge-torrent.org/): Torrent downloader
+* [ruTorrent](https://github.com/Novik/ruTorrent): Torrent downloader
 
 
 ### Starting up

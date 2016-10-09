@@ -9,57 +9,31 @@ services:
     image: linuxserver/couchpotato
     volumes:
       - $HOME/dev/docker_containers/couchpotato:/config
+      - /media:/media:rw
     environment:
       - PGID=1000
       - PUID=1000
     ports:
       - 30001:5050
+    restart: always
   # TV Show downloads
   sonar:
     image: linuxserver/sonarr
     volumes:
       - $HOME/dev/docker_containers/sonarr:/config
-      - /media/ruri/Torrents/Completed:/downloads/
+      - /media:/media:rw
       - /dev/rtc:/dev/rtc:ro
     environment:
       - PGID=1000
       - PUID=1000
     ports:
       - 30002:8989
-  # Music downloader
-  headphonez:
-    image: linuxserver/headphones
-    volumes:
-      - $HOME/dev/docker_containers/headphones:/config
-      - /media/ruri/Torrents/Completed:/config/Completed
-      - /media/gamora/Music:/config/Completed
-      - /etc/localtime:/etc/localtime:ro
-    environment:
-      - PGID=1000
-      - PUID=1000
-    ports:
-      - 30006:8181
-  # Comic downloader
-  mylar:
-    image: linuxserver/mylar
-    volumes:
-      - $HOME/dev/docker_containers/headphones:/config
-      - /media/ruri/Torrents/Completed:/config/Completed
-      - /media/gamora/Comics:/comics
-      - /etc/localtime:/etc/localtime:ro
-    environment:
-      - PGID=1000
-      - PUID=1000
-    ports:
-      - 30007:8181
-  # Newsgroup downloader
+    restart: always
   sabnzb:
     image: linuxserver/sabnzbd
     volumes:
-      - $HOME/dev/docker_containers/sabnzb:/config
-      - /media/ruri/Torrents/Completed:/config/Downloads/complete
-      - /media/ruri/Torrents/Downloading:/config/Downloads/incomplete
-      - $HOME/Downloads/nzb:/config/nzbs
+      - $HOME/dev/docker_containers/sabnzb:/config:rw
+      - /media/urakaze:/media/urakaze:rw
       - /etc/localtime:/etc/localtime:ro
     environment:
       - PGID=1000
@@ -67,29 +41,35 @@ services:
     ports:
       - 30003:8080
       - 40001:9090
+    restart: always
   # Torrent downloader
-  deluge:
-    image: linuxserver/deluge
+  rutorrent:
+    image: linuxserver/rutorrent
     volumes:
-      - $HOME/dev/docker_containers/deluge:/config
-      - /media/ruri/Torrents/Completed:/config/Completed
-      - /media/ruri/Torrents/Downloading:/config/Downloads
-      - /etc/localtime:/etc/localtime:ro
+      - $HOME/dev/docker_containers/rutorrent:/config:rw
+      - /media:/media
     environment:
       - PGID=1000
       - PUID=1000
-    network_mode: "host"
+      - TZ=America/Los Angeles
+    ports:
+      - 30008:80
+      - 5000:5000
+      - 51413:51413
+      - 6881:6881/udp
+    restart: always
   # Media Server
   plex:
     image: linuxserver/plex
     volumes:
       - $HOME/dev/docker_containers/plex:/config
-      - /media/gamora:/mnt
+      - /media:/mnt:rw
     environment:
       - VERSION=latest
       - PGID=1000
       - PUID=1000
     network_mode: "host"
+    restart: always
   # Allows people to request movies/tv shows that will download through sonarr or couchpotato
   plexrequests:
     image: lsiodev/plexrequests
@@ -101,6 +81,7 @@ services:
       - PUID=1000
     ports:
       - 30004:3000
+    restart: always
   # Collects stats for your Plex server
   plexpy:
     image: linuxserver/plexpy
@@ -113,14 +94,16 @@ services:
       - PUID=1000
     ports:
       - 30005:8181
-  # Portal for control
-  muximux:
-    image: linuxserver/muximux
+    restart: always
+ # Comic downloader
+  mylar:
+    image: linuxserver/mylar
     volumes:
-      - $HOME/dev/docker_containers/muximux:/config
+      - $HOME/dev/docker_containers/mylar:/config
+      - /media:/media
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - PGID=1000
       - PUID=1000
-      - TZ=Americas\Los Angeles
     ports:
-      - 80:80
+      - 30007:8090
