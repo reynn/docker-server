@@ -43,20 +43,17 @@ services:
       - 40001:9090
     restart: always
   # Torrent downloader
-  rutorrent:
-    image: linuxserver/rutorrent
+  deluge:
+    build: deluge-custom/.
+    image: deluge-custom
     volumes:
-      - $HOME/dev/docker_containers/rutorrent:/config:rw
+      - $HOME/dev/docker_containers/deluge:/config
       - /media:/media
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - PGID=1000
       - PUID=1000
-      - TZ=America/Los Angeles
-    ports:
-      - 30008:80
-      - 5000:5000
-      - 51413:51413
-      - 6881:6881/udp
+    network_mode: "host"
     restart: always
   # Media Server
   plex:
@@ -107,3 +104,7 @@ services:
       - PUID=1000
     ports:
       - 30007:8090
+    restart: always
+
+
+
