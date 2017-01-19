@@ -56,8 +56,8 @@ services:
     build: deluge-custom/.
     image: deluge-custom
     labels:
-      - "collectd_docker_app=server-monitors--/"
-      - "collectd_docker_task=/"
+      - "collectd_docker_app=server-monitors--deluge"
+      - "collectd_docker_task=deluge"
     volumes:
       - $HOME/dev/docker_containers/deluge:/config
       - /media:/media
