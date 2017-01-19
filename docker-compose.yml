@@ -7,9 +7,6 @@ services:
   # Movie downloads
   couchpotato:
     image: linuxserver/couchpotato
-    labels:
-      - "collectd_docker_app=server-monitors--couchpotato"
-      - "collectd_docker_task=couchpotato"
     volumes:
       - $HOME/dev/docker_containers/couchpotato:/config
       - /media:/media:rw
@@ -22,9 +19,6 @@ services:
   # TV Show downloads
   sonar:
     image: linuxserver/sonarr
-    labels:
-      - "collectd_docker_app=server-monitors--sonar"
-      - "collectd_docker_task=sonar"
     volumes:
       - $HOME/dev/docker_containers/sonarr:/config
       - /media:/media:rw
@@ -37,9 +31,6 @@ services:
     restart: always
   sabnzb:
     image: linuxserver/sabnzbd
-    labels:
-      - "collectd_docker_app=server-monitors--sabnzb"
-      - "collectd_docker_task=sabnzb"
     volumes:
       - $HOME/dev/docker_containers/sabnzb:/config:rw
       - /media/urakaze:/media/urakaze:rw
@@ -55,9 +46,6 @@ services:
   deluge:
     build: deluge-custom/.
     image: deluge-custom
-    labels:
-      - "collectd_docker_app=server-monitors--deluge"
-      - "collectd_docker_task=deluge"
     volumes:
       - $HOME/dev/docker_containers/deluge:/config
       - /media:/media
@@ -70,9 +58,6 @@ services:
   # Media Server
   plex:
     image: linuxserver/plex
-    labels:
-      - "collectd_docker_app=server-monitors--plex"
-      - "collectd_docker_task=plex"
     volumes:
       - $HOME/dev/docker_containers/plex:/config
       - /media:/mnt:rw
@@ -85,9 +70,6 @@ services:
   # Allows people to request movies/tv shows that will download through sonarr or couchpotato
   plexrequests:
     image: lsiodev/plexrequests
-    labels:
-      - "collectd_docker_app=server-monitors--plexrequests"
-      - "collectd_docker_task=plexrequests"
     volumes:
       - $HOME/dev/docker_containers/plexrequests:/config
       - /etc/localtime:/etc/localtime:ro
@@ -100,9 +82,6 @@ services:
   # Collects stats for your Plex server
   plexpy:
     image: linuxserver/plexpy
-    labels:
-      - "collectd_docker_app=server-monitors--plexpy"
-      - "collectd_docker_task=plexpy"
     volumes:
       - $HOME/dev/docker_containers/plexpy:/config
       - $HOME/dev/docker_containers/plexpy_logs:/logs
@@ -116,9 +95,6 @@ services:
  # Comic downloader
   mylar:
     image: linuxserver/mylar
-    labels:
-      - "collectd_docker_app=server-monitors--mylar"
-      - "collectd_docker_task=mylar"
     volumes:
       - $HOME/dev/docker_containers/mylar:/config
       - /media:/media
