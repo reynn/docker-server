@@ -10,7 +10,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-nginx
+        tag: docker-nginx
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt:ro"
     ports:
@@ -24,7 +24,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-couchpotato
+        tag: docker-couchpotato
     volumes:
       - /docker/containers/media-server/couchpotato:/config
       - /media:/media:rw
@@ -41,7 +41,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-sonarr
+        tag: docker-sonarr
     volumes:
       - /docker/containers/media-server/sonarr:/config
       - /media:/media:rw
@@ -58,7 +58,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-sabnzb
+        tag: docker-sabnzb
     volumes:
       - /docker/containers/media-server/sabnzb:/config:rw
       - /media/urakaze:/media/urakaze:rw
@@ -78,7 +78,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-deluge
+        tag: docker-deluge
     volumes:
       - /docker/containers/media-server/deluge:/config
       - /media:/media
@@ -95,7 +95,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-plex
+        tag: docker-plex
     volumes:
       - /docker/containers/media-server/plex:/config
       - /media:/mnt:rw
@@ -112,7 +112,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-plexrequests
+        tag: docker-plexrequests
     volumes:
       - /docker/containers/media-server/plexrequests:/config
       - /etc/localtime:/etc/localtime:ro
@@ -130,7 +130,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-plexpy
+        tag: docker-plexpy
     volumes:
       - /docker/containers/media-server/plexpy:/config
       - /docker/containers/media-server/logs/plexpy:/logs
@@ -149,7 +149,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://localhost:25826"
-        syslog-tag: docker-mylar
+        tag: docker-mylar
     volumes:
       - /docker/containers/media-server/mylar:/config
       - /media:/media
