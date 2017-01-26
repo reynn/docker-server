@@ -78,7 +78,7 @@ services:
     restart: always
   # Allows people to request movies/tv shows that will download through sonarr or couchpotato
   plexrequests:
-    image: lsiodev/plexrequests
+    image: linuxserver/plexrequests
     volumes:
       - $HOME/dev/docker_containers/plexrequests:/config
       - /etc/localtime:/etc/localtime:ro

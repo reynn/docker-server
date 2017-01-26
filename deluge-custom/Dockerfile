@@ -1,5 +1,4 @@
 FROM linuxserver/deluge:latest
 
-RUN apt-get update && \
-	apt-get install -y python3-pip libyaml-dev && \
+RUN apk add --update --no-cache python3 yaml && \
 	pip3 install PyYAML requests
