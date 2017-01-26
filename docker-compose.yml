@@ -6,7 +6,10 @@ version: '2'
 services:
   nginx:
     build: nginx/
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt:ro"
       - "/docker/containers/logs/nginx:/var/log/nginx:rw"
@@ -17,7 +20,10 @@ services:
   # Movie downloads
   couchpotato:
     image: linuxserver/couchpotato
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/couchpotato:/config
       - /media:/media:rw
@@ -30,7 +36,10 @@ services:
   # TV Show downloads
   sonarr:
     image: linuxserver/sonarr
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/sonarr:/config
       - /media:/media:rw
@@ -43,7 +52,10 @@ services:
     restart: always
   sabnzb:
     image: linuxserver/sabnzbd
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/sabnzb:/config:rw
       - /media/urakaze:/media/urakaze:rw
@@ -59,7 +71,10 @@ services:
   deluge:
     build: deluge-custom/
     image: deluge-custom
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/deluge:/config
       - /media:/media
@@ -72,7 +87,10 @@ services:
   # Media Server
   plex:
     image: linuxserver/plex
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/plex:/config
       - /media:/mnt:rw
@@ -85,7 +103,10 @@ services:
   # Allows people to request movies/tv shows that will download through sonarr or couchpotato
   plexrequests:
     image: linuxserver/plexrequests
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/plexrequests:/config
       - /etc/localtime:/etc/localtime:ro
@@ -99,7 +120,10 @@ services:
   # Collects stats for your Plex server
   plexpy:
     image: linuxserver/plexpy
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/plexpy:/config
       - $HOME/dev/docker_containers/plexpy_logs:/logs
@@ -114,7 +138,10 @@ services:
  # Comic downloader
   mylar:
     image: linuxserver/mylar
-    log_driver: syslog
+    logging:
+      driver: syslog
+      options:
+        "syslog-address": "tcp://localhost:25826"
     volumes:
       - $HOME/dev/docker_containers/mylar:/config
       - /media:/media
