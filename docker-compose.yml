@@ -9,10 +9,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-nginx
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt:ro"
-      - "/docker/containers/logs/nginx:/var/log/nginx:rw"
     ports:
       - 80:80
       - 443:443
@@ -23,9 +23,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-couchpotato
     volumes:
-      - $HOME/dev/docker_containers/couchpotato:/config
+      - /docker/containers/media-server/couchpotato:/config
       - /media:/media:rw
     environment:
       - PGID=1000
@@ -39,9 +40,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-sonarr
     volumes:
-      - $HOME/dev/docker_containers/sonarr:/config
+      - /docker/containers/media-server/sonarr:/config
       - /media:/media:rw
       - /dev/rtc:/dev/rtc:ro
     environment:
@@ -55,9 +57,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-sabnzb
     volumes:
-      - $HOME/dev/docker_containers/sabnzb:/config:rw
+      - /docker/containers/media-server/sabnzb:/config:rw
       - /media/urakaze:/media/urakaze:rw
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -74,9 +77,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-deluge
     volumes:
-      - $HOME/dev/docker_containers/deluge:/config
+      - /docker/containers/media-server/deluge:/config
       - /media:/media
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -90,9 +94,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-plex
     volumes:
-      - $HOME/dev/docker_containers/plex:/config
+      - /docker/containers/media-server/plex:/config
       - /media:/mnt:rw
     environment:
       - VERSION=latest
@@ -106,9 +111,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-plexrequests
     volumes:
-      - $HOME/dev/docker_containers/plexrequests:/config
+      - /docker/containers/media-server/plexrequests:/config
       - /etc/localtime:/etc/localtime:ro
     environment:
       - PGID=1000
@@ -123,15 +129,16 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-plexpy
     volumes:
-      - $HOME/dev/docker_containers/plexpy:/config
-      - $HOME/dev/docker_containers/plexpy_logs:/logs
+      - /docker/containers/media-server/plexpy:/config
+      - /docker/containers/media-server/logs/plexpy:/logs
       - /etc/localtime:/etc/localtime:ro
     environment:
       - PGID=1000
       - PUID=1000
-      - TZ=Americas\Los Angeles
+      - TZ="Americas\Los Angeles"
     ports:
       - 30005:8181
     restart: always
@@ -141,9 +148,10 @@ services:
     logging:
       driver: syslog
       options:
-        "syslog-address": "tcp://localhost:25826"
+        syslog-address: "tcp://localhost:25826"
+        syslog-tag: docker-mylar
     volumes:
-      - $HOME/dev/docker_containers/mylar:/config
+      - /docker/containers/media-server/mylar:/config
       - /media:/media
       - /etc/localtime:/etc/localtime:ro
     environment:
