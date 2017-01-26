@@ -6,15 +6,18 @@ version: '2'
 services:
   nginx:
     build: nginx/
-    ports:
-      - 80:80
-      - 443:443
+    log_driver: syslog
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt:ro"
       - "/docker/containers/logs/nginx:/var/log/nginx:rw"
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
   # Movie downloads
   couchpotato:
     image: linuxserver/couchpotato
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/couchpotato:/config
       - /media:/media:rw
@@ -27,6 +30,7 @@ services:
   # TV Show downloads
   sonarr:
     image: linuxserver/sonarr
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/sonarr:/config
       - /media:/media:rw
@@ -39,6 +43,7 @@ services:
     restart: always
   sabnzb:
     image: linuxserver/sabnzbd
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/sabnzb:/config:rw
       - /media/urakaze:/media/urakaze:rw
@@ -52,8 +57,9 @@ services:
     restart: always
   # Torrent downloader
   deluge:
-    build: deluge-custom/.
+    build: deluge-custom/
     image: deluge-custom
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/deluge:/config
       - /media:/media
@@ -66,6 +72,7 @@ services:
   # Media Server
   plex:
     image: linuxserver/plex
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/plex:/config
       - /media:/mnt:rw
@@ -78,6 +85,7 @@ services:
   # Allows people to request movies/tv shows that will download through sonarr or couchpotato
   plexrequests:
     image: linuxserver/plexrequests
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/plexrequests:/config
       - /etc/localtime:/etc/localtime:ro
@@ -91,6 +99,7 @@ services:
   # Collects stats for your Plex server
   plexpy:
     image: linuxserver/plexpy
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/plexpy:/config
       - $HOME/dev/docker_containers/plexpy_logs:/logs
@@ -105,6 +114,7 @@ services:
  # Comic downloader
   mylar:
     image: linuxserver/mylar
+    log_driver: syslog
     volumes:
       - $HOME/dev/docker_containers/mylar:/config
       - /media:/media
