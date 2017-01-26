@@ -1,3 +1,3 @@
-FROM nginx:latest
+FROM nginx
 
 ADD . /etc/nginx

@@ -11,7 +11,6 @@ services:
       - 443:443
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt:ro"
-      - "/docker/containers/nginx:/etc/nginx:ro"
       - "/docker/containers/logs/nginx:/var/log/nginx:rw"
   # Movie downloads
   couchpotato:
