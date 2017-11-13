@@ -57,7 +57,8 @@ services:
     restart: always
   # Media Server
   plex:
-    image: linuxserver/plex
+    build: plex/
+    image: plex-custom
     volumes:
       - /docker/containers/media-server/plex:/config
       - /media:/mnt:rw
