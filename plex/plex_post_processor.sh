@@ -41,7 +41,7 @@ if [ ! -z "$1" ]; then
 
    FILENAME=$1 	# %FILE% - Filename of original file
 
-   TEMPFILENAME="$(mktemp)"  # Temporary File for transcoding
+   OUT_FILENAME="${FILENAME%.ts}.mp4"  # Temporary File for transcoding
 
    # Uncomment if you want to adjust the bandwidth for this thread
    #MYPID=$$	# Process ID for current script
@@ -51,15 +51,14 @@ if [ ! -z "$1" ]; then
    echo "********************************************************"
    echo "Transcoding, Converting to H.264 w/Handbrake"
    echo "********************************************************"
-   HandBrakeCLI -i "$FILENAME" -f mkv --aencoder copy -e qsv_h264 --x264-preset veryfast --x264-profile auto -q 16 --maxHeight 720 --decomb bob -o "$TEMPFILENAME"
+   HandBrakeCLI -i "$FILENAME" -Z "Fast 1080p30" -o "$OUT_FILENAME"
 
    echo "********************************************************"
-   echo "Cleanup / Copy $TEMPFILENAME to $FILENAME"
+   echo "Cleanup $FILENAME"
    echo "********************************************************"
 
    rm -f "$FILENAME"
-   mv -f "$TEMPFILENAME" "$FILENAME"
-   chmod 777 "$FILENAME" # This step may no tbe neccessary, but hey why not.
+   chmod 777 "$OUT_FILENAME" # This step may not be neccessary, but hey why not.
 
    echo "Done.  Congrats!"
 else
