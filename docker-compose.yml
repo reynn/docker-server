@@ -9,14 +9,14 @@ services:
     image: dperson/samba
     command:
       - "-w WORKGROUP"
-      - "-u \"reynn;${DEFAULT_PASSWORD:-default-pass}\""
-      - "-u \"dizkaimo;${DEFAULT_PASSWORD:-default-pass}\""
-      - "-s \"hamakaze;/media/hamakaze;yes;no;;;;;\""
-      - "-s \"isokaze;/media/isokaze;yes;no;;;;;\""
-      - "-s \"kawakaze;/media/kawakaze;yes;no;;;;;\""
-      - "-s \"shimakaze;/media/shimakaze;yes;no;;;;;\""
-      - "-s \"tokitsukaze;/media/tokitsukaze;yes;no;;;;;\""
-      - "-s \"yukikaze;/media/yukikaze;yes;no;;;;;\""
+      - "-u reynn;${DEFAULT_PASSWORD:-default-pass}"
+      - "-u dizkaimo;${DEFAULT_PASSWORD:-default-pass}"
+      - "-s hamakaze;/media/hamakaze;yes;no;;;;;"
+      - "-s isokaze;/media/isokaze;yes;no;;;;;"
+      - "-s kawakaze;/media/kawakaze;yes;no;;;;;"
+      - "-s shimakaze;/media/shimakaze;yes;no;;;;;"
+      - "-s tokitsukaze;/media/tokitsukaze;yes;no;;;;;"
+      - "-s yukikaze;/media/yukikaze;yes;no;;;;;"
     volumes:
       - /media:/media:rw
     ports:
