@@ -1,4 +1,6 @@
 FROM linuxserver/deluge:latest
 
-RUN apk add --update --no-cache python3 yaml && \
-	pip3 install PyYAML requests
+RUN apt-get update \
+		&& apt-get install -y \
+				python3-pip \
+		&& pip3 install PyYAML requests
