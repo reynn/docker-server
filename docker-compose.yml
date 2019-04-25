@@ -4,6 +4,25 @@
 version: '2'
 
 services:
+  # File shares
+  samba:
+    image: dperson/samba
+    command:
+      - -w WORKGROUP
+      - -u "reynn;${DEFAULT_PASSWORD}"
+      - -u "dizkaimo;${DEFAULT_PASSWORD}"
+      - -s "hamakaze;/media/hamakaze;yes;no;;;;;"
+      - -s "isokaze;/media/isokaze;yes;no;;;;;"
+      - -s "kawakaze;/media/kawakaze;yes;no;;;;;"
+      - -s "shimakaze;/media/shimakaze;yes;no;;;;;"
+      - -s "tokitsukaze;/media/tokitsukaze;yes;no;;;;;"
+      - -s "yukikaze;/media/yukikaze;yes;no;;;;;"
+    volumes:
+      - /media:/media:rw
+    ports:
+      - 139:139
+      - 445:445
+    restart: always
   # Movie downloads
   couchpotato:
     image: linuxserver/couchpotato
